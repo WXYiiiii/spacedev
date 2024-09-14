@@ -20,4 +20,4 @@ def generate_large_csv(file_name, target_size_gb):
             csvfile.flush()  # 刷新写入缓存
 
 # 使用示例
-generate_large_csv('./data/large8.csv', 8)  # 生成 4GB 的 CSV 文件
+generate_large_csv('./data/large1.csv', 1)  # 生成 4GB 的 CSV 文件

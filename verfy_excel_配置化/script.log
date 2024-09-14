@@ -153,3 +153,72 @@
 2024-09-10 10:31:31,025 - INFO - 项目 项目D 的数据已写入 Excel
 2024-09-10 10:31:31,025 - INFO - 没有格式化配置，跳过格式化步骤
 2024-09-10 10:31:31,037 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file2.xlsx
+2024-09-10 13:42:07,259 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx
+2024-09-10 13:42:07,270 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 13:42:07,271 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 13:42:07,271 - WARNING - 项目 猪猪猪 的项目ID未找到
+2024-09-10 13:42:07,271 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 13:42:07,272 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 13:42:07,272 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 13:42:07,313 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file1.xlsx
+2024-09-10 13:42:07,313 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file2.xlsx
+2024-09-10 13:42:07,317 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 13:42:07,318 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 13:42:07,319 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 13:42:07,319 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 13:42:07,319 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 13:42:07,348 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file2.xlsx
+2024-09-10 13:53:27,284 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx
+2024-09-10 13:53:27,291 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 13:53:27,291 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 13:53:27,292 - WARNING - 项目 猪猪猪 的项目ID未找到
+2024-09-10 13:53:27,292 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 13:53:27,293 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 13:53:27,293 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 13:53:27,307 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file1.xlsx
+2024-09-10 13:53:27,307 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file2.xlsx
+2024-09-10 13:53:27,311 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 13:53:27,311 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 13:53:27,312 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 13:53:27,312 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 13:53:27,313 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 13:53:27,322 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file2.xlsx
+2024-09-10 14:02:25,234 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx
+2024-09-10 14:02:25,239 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 14:02:25,239 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 14:02:25,240 - WARNING - 项目 猪猪猪 的项目ID未找到
+2024-09-10 14:02:25,240 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 14:02:25,241 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 14:02:25,241 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 14:02:25,253 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file1.xlsx
+2024-09-10 14:02:25,253 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file2.xlsx
+2024-09-10 14:02:25,257 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 14:02:25,257 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 14:02:25,258 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 14:02:25,258 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 14:02:25,259 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 14:02:25,268 - INFO - 数据已成功写入 D:\spacedev\verfy_excel_配置化\data\output_file2.xlsx
+2024-09-10 14:05:05,997 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx
+2024-09-10 14:05:06,002 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 14:05:06,003 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 14:05:06,003 - WARNING - 项目 猪猪猪 的项目ID未找到
+2024-09-10 14:05:06,003 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 14:05:06,004 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 14:05:06,004 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 14:05:06,012 - ERROR - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx 失败: [Errno 13] Permission denied: 'D:\\spacedev\\verfy_excel_配置化\\data\\output_file1.xlsx'
+2024-09-10 14:17:25,275 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx
+2024-09-10 14:17:25,279 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 14:17:25,280 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 14:17:25,280 - WARNING - 项目 猪猪猪 的项目ID未找到
+2024-09-10 14:17:25,281 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 14:17:25,281 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 14:17:25,281 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 14:17:25,290 - ERROR - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx 失败: [Errno 13] Permission denied: 'D:\\spacedev\\verfy_excel_配置化\\data\\output_file1.xlsx'
+2024-09-10 14:17:57,310 - INFO - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx
+2024-09-10 14:17:57,316 - INFO - 项目 项目A 的数据已写入 Excel
+2024-09-10 14:17:57,316 - INFO - 项目 项目C 的数据已写入 Excel
+2024-09-10 14:17:57,316 - WARNING - 项目 猪猪猪 的项目ID未找到
+2024-09-10 14:17:57,317 - INFO - 项目 项目B 的数据已写入 Excel
+2024-09-10 14:17:57,318 - INFO - 项目 项目D 的数据已写入 Excel
+2024-09-10 14:17:57,318 - INFO - 没有格式化配置，跳过格式化步骤
+2024-09-10 14:17:57,325 - ERROR - 处理文件 D:\spacedev\verfy_excel_配置化\data\input_file1.xlsx 失败: [Errno 13] Permission denied: 'D:\\spacedev\\verfy_excel_配置化\\data\\output_file1.xlsx'

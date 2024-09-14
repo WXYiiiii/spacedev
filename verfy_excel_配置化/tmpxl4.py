@@ -8,6 +8,8 @@ import sqlite3
 匹配行和列
 添加控制excel格式的配置 写入的部分
 添加控制特定单元格格式
+
+- 没有配置输入输出路径
 """
 
 
@@ -63,9 +65,7 @@ def set_cell_style(cell, style_config):
     cell.font = font
 
     # 设置背景颜色
-    fill = PatternFill(start_color=style_config['fill']['start_color'],
-                       end_color=style_config['fill']['end_color'],
-                       fill_type=style_config['fill']['fill_type'])
+    fill = PatternFill(start_color=style_config['fill']['start_color'])
     cell.fill = fill
 
     # 设置对齐方式
@@ -74,23 +74,24 @@ def set_cell_style(cell, style_config):
     cell.alignment = alignment
 
 # 应用格式到特定行、列或单元格
-def apply_formatting(sheet, config):
-    formatting_targets = config['formatting_targets']
-
-    for target, style_config in formatting_targets.items():
-        if isinstance(target, str):
-            if target.isdigit():  # 处理行格式
-                row = int(target)
-                for cell in sheet[row]:
-                    set_cell_style(cell, style_config)
-            elif len(target) == 1:  # 处理列格式
-                col = target.upper()
-                for row in range(1, sheet.max_row + 1):
-                    cell = sheet[f"{col}{row}"]
-                    set_cell_style(cell, style_config)
-            else:  # 处理具体单元格
-                cell = sheet[target.upper()]
-                set_cell_style(cell, style_config)
+# def apply_formatting(sheet, config):
+#
+#
+#     formatting_targets = config.get('formatting_targets',{})
+#     for target, style_config in formatting_targets.items():
+#         if isinstance(target, str):
+#             if target.isdigit():  # 处理行格式
+#                 row = int(target)
+#                 for cell in sheet[row]:
+#                     set_cell_style(cell, style_config)
+#             elif len(target) == 1:  # 处理列格式
+#                 col = target.upper()
+#                 for row in range(1, sheet.max_row + 1):
+#                     cell = sheet[f"{col}{row}"]
+#                     set_cell_style(cell, style_config)
+#             else:  # 处理具体单元格
+#                 cell = sheet[target.upper()]
+#                 set_cell_style(cell, style_config)
 
 # 将查询结果写入Excel
 def write_to_excel(sheet, project_row, query_result, excel_to_sqlite_indicator_map, config):
@@ -118,7 +119,7 @@ def main():
     config = load_config()
 
     # 读取Excel模板
-    template_path = 'template.xlsx'
+    template_path = './data/input_file1.xlsx'
     workbook, sheet, excel_indicators, project_map = read_excel_template(template_path, config)
 
     # 从配置文件中获取Excel指标名称到SQLite字段的映射

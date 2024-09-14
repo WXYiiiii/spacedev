@@ -4,7 +4,9 @@ from openpyxl.styles import Font, PatternFill, Alignment
 import sqlite3
 import logging
 
-logging.basicConfig(filename='script.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# 同5，无注释
+
+logging.basicConfig(filename='../script.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def log_info(message):
     logging.info(message)

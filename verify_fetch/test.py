@@ -24,7 +24,7 @@ def fetch_data():
     cursor.execute("SELECT * FROM your_table")
 
     while True:
-        rows = cursor.fetchmany(5)  # 每次提取5行
+        rows = cursor.fetchmany(5000)  # 每次提取5行
         if not rows:  # 如果没有更多行，退出循环
             break
         # 处理每一行（这里只是打印行数，不打印具体内容）

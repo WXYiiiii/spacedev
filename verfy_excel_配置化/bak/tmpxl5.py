@@ -4,8 +4,10 @@ from openpyxl.styles import Font, PatternFill, Alignment
 import sqlite3
 import logging
 
+# 读取多个excel
+
 # 配置日志记录
-logging.basicConfig(filename='script.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='../script.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def log_info(message):
     """记录信息级别日志"""
@@ -129,9 +131,12 @@ def write_to_excel(sheet, project_row, query_result, excel_to_sqlite_indicator_m
     # 获取Excel中指标字段的顺序
     excel_indicators = [cell.value for cell in sheet[config['mapping']['indicator_row']][2:]]
 
+    print(excel_indicators)
+
     # 创建一个指标到列号的映射
     indicator_column_map = {indicator: idx + 3 for idx, indicator in enumerate(excel_indicators)}
 
+    print(indicator_column_map)
     # 遍历Excel中的指标名称，并根据配置文件中的映射将数据写入相应的单元格
     for excel_indicator, column_idx in indicator_column_map.items():
         sqlite_field = excel_to_sqlite_indicator_map.get(excel_indicator)
