@@ -101,6 +101,9 @@ def write_to_excel(sheet, project_row, query_result, excel_to_sqlite_indicator_m
     # 创建一个指标到列号的映射
     indicator_column_map = {indicator: idx + 3 for idx, indicator in enumerate(excel_indicators)}
 
+    print(indicator_column_map)
+
+
     # 遍历Excel中的指标名称，并根据配置文件中的映射将数据写入相应的单元格
     for excel_indicator, column_idx in indicator_column_map.items():
         sqlite_field = excel_to_sqlite_indicator_map.get(excel_indicator)

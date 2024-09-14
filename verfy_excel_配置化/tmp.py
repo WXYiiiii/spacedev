@@ -16,10 +16,10 @@ def query_sqlite_data(conn, project_id, sqlite_indicators, config):
     FROM project_data
     WHERE {config['mapping']['project_id_column']} = ?
     """
-    cursor.execute(query, (project_id,))
+    cursor.execute(query, (project_id,))        # 根据维度的id进行查询  -> 每一行的数据可以对应上
     return cursor.fetchone()
 
-# 设置单元格样式的函数
+# 设置单元格样式的函数    1. 字体   2. 背景   3. 位置
 def set_cell_style(cell, config):
     cell.font = Font(
         name=config['excel_style']['font']['name'],
@@ -34,27 +34,31 @@ def set_cell_style(cell, config):
         vertical=config['excel_style']['alignment']['vertical']
     )
 
-# 读取Excel模板，获取项目名称、指标名称的映射关系
+# 读取: Excel模板       获取: 1. 指标名称 2. 维度名称和行数的映射关系
 def read_excel_template(template_path, config):
     workbook = openpyxl.load_workbook(template_path)
     sheet = workbook.active
 
-    # 获取Excel中的指标字段，从指定列开始
+    # 指标字段:  获取Excel中的指标字段，从指定列(维度列的下一列)开始
     excel_indicators = [cell.value for cell in sheet[config['mapping']['indicator_row']][config['mapping']['column_num']:]]
 
-    # 获取项目名称和对应的Excel行号
+    # 获取维度名称和对应的Excel行号
     project_map = {
         sheet[f"{config['mapping']['project_column']}{row}"].value: row
         for row in range(config['mapping']['start_row'], sheet.max_row + 1)
         if sheet[f"{config['mapping']['project_column']}{row}"].value
     }
+    # print(project_map)
 
     return workbook, sheet, excel_indicators, project_map
 
 # 将查询结果写入Excel
 def write_to_excel(sheet, project_row, query_result, excel_to_sqlite_indicator_map, config):
     excel_indicators = [cell.value for cell in sheet[config['mapping']['indicator_row']][config['mapping']['column_num']:]]
-    indicator_column_map = {indicator: idx + config['mapping']['column_num'] for idx, indicator in enumerate(excel_indicators)}
+    print(excel_indicators)
+    indicator_column_map = {indicator: idx + (config['mapping']['column_num'] + 1) for idx, indicator in enumerate(excel_indicators)}
+
+    print(indicator_column_map)
 
     for excel_indicator, column_idx in indicator_column_map.items():
         sqlite_field = excel_to_sqlite_indicator_map.get(excel_indicator)

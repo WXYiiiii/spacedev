@@ -122,7 +122,7 @@ def write_to_excel(sheet, project_row, query_result, excel_to_sqlite_indicator_m
                         sheet[config['mapping']['indicator_row']][config['mapping']['column_num']:]]
 
     # 构建指标名称到Excel列号的映射
-    indicator_column_map = {indicator: idx + config['mapping']['column_num'] for idx, indicator in
+    indicator_column_map = {indicator: idx + (config['mapping']['column_num'] + 1) for idx, indicator in
                             enumerate(excel_indicators)}
 
     # 遍历每个Excel指标，匹配SQLite数据字段并写入相应单元格
@@ -178,4 +178,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-#test
