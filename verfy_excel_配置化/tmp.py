@@ -89,7 +89,6 @@ def write_to_excel(sheet, project_row, query_result, excel_to_sqlite_indicator_m
     # excel_indicator excel指标名称   column_idx 指标对应的列号
     for excel_indicator, column_idx in indicator_column_map.items():
         sqlite_field = excel_to_sqlite_indicator_map.get(excel_indicator)
-        print(sqlite_field)
 
         if sqlite_field and query_result:
             result_index = list(excel_to_sqlite_indicator_map.values()).index(sqlite_field)

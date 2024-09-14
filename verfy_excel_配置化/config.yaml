@@ -1,7 +1,7 @@
 sqlite:
   db_path: 'project_data.db'
 
-input_path: 'template.xlsx'           # 输入的 XLSX 模板文件路径
+input_path: './data/input_file1.xlsx'           # 输入的 XLSX 模板文件路径
 output_path: 'output.xlsx'            # 输出的 XLSX 文件路径
 
 mapping:
