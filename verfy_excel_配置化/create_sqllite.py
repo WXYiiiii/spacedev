@@ -7,6 +7,9 @@ def create_database(db_name='project_data.db'):
 
     # 创建表格：项目ID，个数，规模，个数占比
     cursor.execute('''
+    drop table if exists project_data
+    ''')
+    cursor.execute('''
     CREATE TABLE IF NOT EXISTS project_data (
         project_id INTEGER PRIMARY KEY,
         count INTEGER,
@@ -47,5 +50,5 @@ def query_database(db_name='project_data.db'):
 
 # 主函数
 if __name__ == "__main__":
-    create_database()
-    query_database()
+    create_database()  # 创建新的数据库
+    query_database()    # 查询并打印数据
