@@ -17,23 +17,23 @@ def query_db(db_path, query):
     conn.close()
     return data
 
-# 将数据批量写入Excel
-def write_to_excel(input_path, output_path, start_row, start_column, data):
-    # 打开输入Excel模板文件
-    wb = openpyxl.load_workbook(input_path)
-    ws = wb.active
 
-    # 在指定起始行之前插入空行（如果需要的话）
-    for _ in range(start_row - 1):
-        ws.append([])  # 添加空行以确保从 start_row 开始
 
-    # 批量写入数据，逐行插入
-    for row_data in data:
-        # 在指定的列位置插入数据
-        ws.append([None] * (start_column - 1) + list(row_data))
+def write_to_excel(data, input_path, output_path, start_row, start_column):
+    # 打开模板文件
+    workbook = openpyxl.load_workbook(input_path)
+    worksheet = workbook.active
 
-    # 保存输出Excel文件
-    wb.save(output_path)
+    # 插入空行以避免覆盖现有数据
+    worksheet.insert_rows(start_row, amount=len(data))
+
+    # 写入数据
+    for row_index, row_data in enumerate(data):
+        for col_index, value in enumerate(row_data):
+            worksheet.cell(row=start_row + row_index, column=start_column + col_index, value=value)
+
+    # 保存输出文件
+    workbook.save(output_path)
 
 # 主函数
 def main():
@@ -44,12 +44,21 @@ def main():
     data = query_db(config['sqlite']['db_path'], config['query'])
 
     # 将数据写入Excel
+    # write_to_excel(
+    #     config['input_path'],
+    #     config['output_path'],
+    #     config['start_row'],
+    #     config['start_column'],
+    #     data
+    # )
+
     write_to_excel(
+        data,
         config['input_path'],
         config['output_path'],
         config['start_row'],
-        config['start_column'],
-        data
+        config['start_column']
+
     )
 
 if __name__ == '__main__':

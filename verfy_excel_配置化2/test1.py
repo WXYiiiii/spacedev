@@ -2,6 +2,7 @@ import sqlite3
 import openpyxl
 import yaml
 
+
 # 加载配置文件
 def load_config(config_file='config.yaml'):
     with open(config_file, 'r', encoding='utf-8') as file:
@@ -13,36 +14,7 @@ def fetch_data(db_path):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    query = '''
-    SELECT
-        prod_qty,
-        prod_pct,
-        prod_wow_change,
-        prod_wow_ratio,
-        prod_yoy_change,
-        prod_yoy_ratio,
-        prod_1st_quartile,
-        prod_2nd_quartile,
-        prod_3rd_quartile,
-        prod_top5_tot,
-        prod_top5_pct,
-        payin_trust_scale_100m,
-        trust_scale_pct,
-        scale_wow_change,
-        scale_wow_ratio,
-        scale_yoy_change,
-        scale_yoy_ratio,
-        scale_1st_quartile,
-        scale_2nd_quartile,
-        scale_3rd_quartile,
-        scale_top5_tot,
-        scale_top5_pct,
-        issuing_org_qty,
-        issuing_org_wow_change,
-        issuing_org_wow_ratio
-    FROM reg_init_indus_sum_wk 
-    ORDER BY order_idx;
-    '''
+    query = config['query']
 
     cursor.execute(query)
     data = cursor.fetchall()

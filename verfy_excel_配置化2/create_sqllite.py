@@ -7,49 +7,13 @@ def create_database(db_name='new_project_data.db'):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
-    # 创建表格：项目ID，个数，规模，个数占比
-    cursor.execute('''
-    CREATE TABLE reg_init_indus_sum_wk(
-    year_week_id TEXT (32), -- 周ID
-    start_date NUMERIC, --开始日期
-    end_date NUMERIC, --结束日期
-    order_idx INTEGER, --排序ID
-    item_id TEXT(32), --项目 ID
-    prod_qty INTEGER, --个数 （个）
-    prod_pct REAL(24,6), --个数占比 （%）
-    prod_wow_change INTEGER, --个数环比增量 （个）
-    prod_wow_ratio REAL (24,6), --个数环比 （%）
-    prod_yoy_change INTEGER, --个数同比增量 （个）
-    prod_yoy_ratio REAL (24, 6), --个数同比 （%）
-    prod_1st_quartile INTEGER, --个数第一四分位数 （个）
-    prod_2nd_quartile INTEGER, --个数第二四分位数 （个）
-    prod_3rd_quartile INTEGER,--个数第三四分位数 （个）
-    prod_top5_tot INTEGER ,--个数前五名机构合计数量 （个）
-    prod_top5_pct REAL (24 ,6), --个数前五名机构合计占比 （%）
-    payin_trust_scale_100m REAL (24,6), --实收信托规模 （亿元）
-    trust_scale_pct REAL(24,6), --规模占比 （%）
-    scale_wow_change REAL (24, 6), --规模环比增量 （亿元)
-    scale_wow_ratio REAL (24,6), --规模环比 （%）
-    scale_yoy_change REAL (24, 6), --规模同比增量 （亿元）
-    scale_yoy_ratio REAL (24,6) ,--规模同比 （%）
-    scale_1st_quartile REAL (24 ,6), --规模第一四分位数 （亿元）
-    scale_2nd_quartile REAL (24 , 6), --规模第二 四分位数 （亿元）
-    scale_3rd_quartile REAL (24, 6),-- 规模第三四分位数 （亿元）
-    scale_top5_tot INTEGER, --规模前五名机构合计数量 （个）
-    scale_top5_pct REAL (24, 6), --规模前五名机构合计占比 （%）
-    issuing_org_qty INTEGER, --参与发行机构 （家）
-    issuing_org_wow_change INTEGER, --机构环比增量 （家）
-    issuing_org_wow_ratio REAL (24,6), --机构环比 （%）
-    PRIMARY KEY (year_week_id , item_id )
-    ); 
-    ''')
 
     # 生成模拟数据
     data = []
 
     # 创建一些模拟数据
-    for i in range(10):  # 假设我们生成10条数据
-        year_week_id = f"2024-W{i+1}"
+    for i in range(1000):  # 假设我们生成10条数据
+        year_week_id = f"2024-W{i+2000}"
         start_date = (datetime.now() - timedelta(weeks=i)).date()
         end_date = start_date + timedelta(days=6)
         order_idx = i + 1
@@ -113,6 +77,8 @@ def create_database(db_name='new_project_data.db'):
                      issuing_org_qty,
                      issuing_org_wow_change,
                      issuing_org_wow_ratio))
+
+    print(data)
 
     cursor.executemany('''
     INSERT INTO reg_init_indus_sum_wk (
