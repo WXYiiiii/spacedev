@@ -16,7 +16,8 @@ import sqlite3
 # 读取配置文件
 def load_config(config_path='config.yaml'):
     with open(config_path, 'r', encoding='utf-8') as file:
-        return yaml.safe_load(file)
+        config = yaml.safe_load(file)
+    return config
 
 # 连接SQLite，执行查询并获取结果
 def query_sqlite_data(project_id, sqlite_indicators, config):

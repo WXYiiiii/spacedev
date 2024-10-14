@@ -24,7 +24,7 @@ def unzip_large_file(zip_file_path, extract_to):
     return elapsed_time
 
 
-zip_file_path = './data/large8.zip'  # 替换为你的 ZIP 文件路径
+zip_file_path = './data/large1.zip'  # 替换为你的 ZIP 文件路径
 extract_to = './data/'  # 替换为解压目标路径
 
 elapsed_time = unzip_large_file(zip_file_path, extract_to)

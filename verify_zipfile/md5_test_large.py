@@ -36,3 +36,17 @@ print(f"标志文件生成完成，耗时 {elapsed_time:.2f} 秒。")
 
 # 4kb  15.74s
 # 2mb  12.40s
+#
+#
+# import zipfile
+# import os
+#
+# def extract_zip(zip_file_path, extract_to):
+#     with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+#         for file_info in zip_ref.infolist():
+#             # 设置文件名编码
+#             file_name = file_info.filename.encode('cp437').decode('utf-8')
+#             zip_ref.extract(file_info, extract_to)
+#             os.rename(os.path.join(extract_to, file_info.filename), os.path.join(extract_to, file_name))
+#
+# extract_zip('your_file.zip', 'output_directory')
