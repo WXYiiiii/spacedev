@@ -38,3 +38,23 @@ unique_list = [value for value in unique_dict.values()]
 # 输出结果
 for r in unique_list:
     print(r)
+
+
+
+---
+#!/bin/bash
+
+# 定义源目录和目标目录
+src_dir="/data/script/python"
+dest_dir="/data/script/python/bak"
+
+# 获取今天的日期，格式为YYYYMMDD
+today=$(date +%Y%m%d)
+
+# 进入源目录
+cd $src_dir
+
+# 移动今天之前的所有日志文件
+find . -type f -name "etl_*.log" -mtime +0 -exec mv {} $dest_dir \;
+
+echo "所有今天之前的日志文件已移动到 $dest_dir"
