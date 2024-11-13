@@ -6,12 +6,10 @@ import xml.etree.ElementTree as ET
 
 class PolarsUtil:
     def __init__(self):
-        # 初始化属性，包括接口 URL、输入输出文件路径和列名等
         self.local_interface_url = 'http://localhost:8081/public/interface/urlManage'
         self.file_path = '/data/tmp/xtcpjbxx_12_68_2000.csv'
         self.output_file_path = '/data/tmp/xtcpjbxx_12_68_2000_output.csv'
 
-        # 列名定义
         self.column_names = [
             'col_1', 'col_2', 'col_3', 'col_4', 'col_5', 'col_6', 'col_7', 'col_8',
             'col_9', 'col_10', 'col_11', 'col_12', 'col_13', 'col_14', 'col_15',
@@ -20,75 +18,80 @@ class PolarsUtil:
             'col_30', 'col_31', 'col_32', 'col_33', 'col_34', 'col_35', 'col_36',
             'col_37', 'col_38', 'col_39', 'col_40', 'col_41', 'col_42', 'col_43',
             'col_44', 'col_45', 'col_46', 'col_47', 'col_48', 'col_49', 'col_50',
-            'col_51', 'col_52', 'col_53', 'col_54', 'col_55', 'col_56',
-            'col_57', 'col_58', 'col_59',
-            'col60',' col61',' col62',' col63'
+            # Add more columns as necessary
         ]
 
     def process_large_file_in_batches(self):
-        # 打开输出文件以写入处理结果
         with open(self.output_file_path, mode='w+', newline='', encoding='utf-8') as output_file:
-            writer = csv.writer(output_file)  # 创建 CSV 写入器
-            with_header = True  # 标记是否写入表头
+            writer = csv.writer(output_file)
+            with_header = True
 
-            # 定义数据模式以便于读取 CSV 文件
             schema = pl.Schema(dict(zip(self.column_names, [pl.Utf8] * len(self.column_names))))
+            v_batch_size = 1000
 
-            # 设置批处理大小
-            v_batch_size = 1000  # 每个线程读取的行数
-
-            # 按批次读取 CSV 文件
             reader = pl.read_csv_batched(
                 source=self.file_path,
                 batch_size=v_batch_size,
-                separator=chr(1),  # 使用特定字符作为分隔符
-                schema_overrides=schema  # 应用模式覆盖
+                separator=chr(1),
+                schema_overrides=schema
             )
 
-            batches = reader.next_batches(4)  # 获取初始批次（线程数为4）
+            batches = reader.next_batches(4)
 
-            while batches:  # 当还有批次可处理时
+            while batches:
                 print('---------------------------------------------------')
 
-                # 合并当前批次的数据为一个 DataFrame
                 df_current_batches = pl.concat(batches)
                 print(f'df_current_batches 行数 {df_current_batches.shape[0]}')
 
-                # 添加索引列
+                # 添加索引列以保持原始顺序
                 df_current_batches = df_current_batches.with_row_index(name='index')
 
-                # 对“证件”列进行加密，仅在“类型”列为“个人”的情况下
-                df_current_batches = self.encrypt_certificates(df_current_batches)
+                # 根据条件过滤出“私募”数据
+                df_batch_sm = df_current_batches.filter(pl.col('col_17') == '私募')
+                print(f'df_batch_sm 行数 {df_batch_sm.shape[0]}')
 
-                # 根据索引重新排序 DataFrame
-                df_current_batches = df_current_batches.sort('index')
+                # 过滤出非“私募”数据
+                df_batch_not_sm = df_current_batches.filter(pl.col('col_17') != '私募')
+                print(f'df_batch_not_sm 行数 {df_batch_not_sm.shape[0]}')
+
+                # 对“私募”数据进行 SM4 加密处理
+                df_batch_sm = self.sm4(df_batch_sm)
+
+                print('df合并')
+
+                # 合并加密后的数据和未加密的数据，并保持原始顺序
+                df_batch_result = pl.concat([df_batch_sm, df_batch_not_sm], rechunk=True)
+
+                # 根据索引重新排序，以保持原始顺序
+                df_batch_result = df_batch_result.sort('index')
+                df_batch_result = df_batch_result.drop('index')
+
+                print(f'df_batch_result 行数 {df_batch_result.shape[0]}')
 
                 print('输出到csv')
-                self.write_df_to_csv(writer, df_current_batches, with_header)  # 写入 CSV 文件
-                with_header = False  # 后续批次不再写入表头
+                self.write_df_to_csv(writer, df_batch_result, with_header)
+                with_header = False
 
-                batches = reader.next_batches(4)  # 获取下一个批次（线程数为4）
+                batches = reader.next_batches(4)
                 print('---------------------------------------------------')
 
-    def encrypt_certificates(self, df):
-        # 对传入的 DataFrame 中的“证件”列进行加密处理，仅在“类型”为“个人”时加密
-        certificate_column = df['col6']  # 假设“证件”在第6列（即' col6'）
-        type_column = df['类型']  # 假设“类型”列名为'类型'
+    def sm4(self, df_batch_sm):
+        strs = df_batch_sm['col6'].to_list()
+        xtcpdm_data = ", ".join(strs)
 
-        encrypted_certificates = []
+        print(f'明文 len {len(xtcpdm_data)}')
 
-        for cert, type_value in zip(certificate_column, type_column):
-            if type_value == "个人":
-                encrypted_cert = self.encrypt_by_post(cert)  # 加密证件信息
-                encrypted_certificates.append(encrypted_cert)
-            else:
-                encrypted_certificates.append(cert)  # 保持原值
+        sm4_data_str = self.encrypt_by_post(xtcpdm_data)
 
-        df = df.with_columns(pl.Series('证件加密后列名' , encrypted_certificates))  # 更新 DataFrame 中的证件列
-        return df
+        if len(xtcpdm_data) > len(sm4_data_str):
+            print(f'【error】 {sm4_data_str}')
+
+        df_batch_sm = df_batch_sm.with_columns(pl.Series('col6', sm4_data_str.split(', '))
+                                               )
+        return df_batch_sm
 
     def encrypt_by_post(self, xtcpdm_data):
-        # 构造 XML 请求消息并发送到接口进行加密处理
         request_message = f"""<service>
             <Head>
                 <SvcCd>PDGP001</SvcCd>
@@ -100,34 +103,33 @@ class PolarsUtil:
             </Body>
         </service>"""
 
-        headers = {'Content-Type': 'text/plain'}  # 设置请求头信息
+        headers = {'Content-Type': 'text/plain'}
 
-        response = requests.post(self.local_interface_url, data=request_message, headers=headers)  # 发送 POST 请求
+        response = requests.post(self.local_interface_url, data=request_message, headers=headers)
 
-        response_str = response.text  # 获取响应文本
+        response_str = response.text
 
-        root = ET.fromstring(response_str)  # 将响应解析为 XML 格式
+        root = ET.fromstring(response_str)
 
-        sm4_data_str = root.find('.//result').text  # 提取加密结果
+        sm4_data_str = root.find('.//result').text
         return sm4_data_str
 
-    def write_df_to_csv(self, writer, df, with_header):
-        # 将 DataFrame 写入 CSV 文件中
-        data = df.rows()  # 获取 DataFrame 中的所有行
+    def write_df_to_csv(self, writer, df_batch_sm, with_header):
+        data = df_batch_sm.rows()
 
         if with_header:
-            writer.writerow(df.columns)  # 如果需要，写入表头
+            writer.writerow(df_batch_sm.columns)
 
         for row in data:
-            writer.writerow(row)  # 写入每一行数据
+            writer.writerow(row)
 
 
 if __name__ == "__main__":
-    v_etl_dt = None  # sys.argv[1]  # 从命令行获取 ETL 日期（目前未使用）
-    obj = PolarsUtil()  # 创建 PolarsUtil 实例
+    v_etl_dt = None
+    obj = PolarsUtil()
 
-    start_time = time.time()  # 开始计时
-    obj.process_large_file_in_batches()  # 调用处理方法
-    end_time = time.time()  # 结束计时
+    start_time = time.time()
+    obj.process_large_file_in_batches()
+    end_time = time.time()
 
-    print(f'耗时 {end_time - start_time} 秒')  # 打印程序运行时间
+    print(f'耗时 {end_time - start_time} 秒')
