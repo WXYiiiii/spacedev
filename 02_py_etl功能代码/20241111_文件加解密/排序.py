@@ -22,7 +22,7 @@ class PolarsUtil:
             'col_44', 'col_45', 'col_46', 'col_47', 'col_48', 'col_49', 'col_50',
             'col_51', 'col_52', 'col_53', 'col_54', 'col_55', 'col_56',
             'col_57', 'col_58', 'col_59',
-            'col_60',' col61',' col62',' col63'
+            'col60',' col61',' col62',' col63'
         ]
 
     def process_large_file_in_batches(self):
@@ -54,8 +54,14 @@ class PolarsUtil:
                 df_current_batches = pl.concat(batches)
                 print(f'df_current_batches 行数 {df_current_batches.shape[0]}')
 
+                # 添加索引列
+                df_current_batches = df_current_batches.with_row_index(name='index')
+
                 # 对“证件”列进行加密，仅在“类型”列为“个人”的情况下
                 df_current_batches = self.encrypt_certificates(df_current_batches)
+
+                # 根据索引重新排序 DataFrame
+                df_current_batches = df_current_batches.sort('index')
 
                 print('输出到csv')
                 self.write_df_to_csv(writer, df_current_batches, with_header)  # 写入 CSV 文件
