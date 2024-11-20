@@ -1,0 +1,2 @@
+config:
+  delimiter: "\x01" # 分隔符配置

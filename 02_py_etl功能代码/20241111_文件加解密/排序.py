@@ -76,8 +76,8 @@ class PolarsUtil:
                 batches = reader.next_batches(4)
                 print('---------------------------------------------------')
 
-    def sm4(self, df_batch_sm):
-        strs = df_batch_sm['col6'].to_list()
+    def sm4(self, df_batch_sm, en_col_name):
+        strs = df_batch_sm[en_col_name].to_list()
         xtcpdm_data = ", ".join(strs)
 
         print(f'明文 len {len(xtcpdm_data)}')
