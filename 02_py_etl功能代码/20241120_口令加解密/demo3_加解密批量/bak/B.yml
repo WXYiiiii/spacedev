@@ -1,0 +1,9 @@
+encript:
+  - filename: A.yml
+    keys:
+      - database.host
+      - api.key
+  - filename: C.yml
+    keys:
+      - service.url
+      - credentials.password

@@ -1,0 +1,16 @@
+database:
+  host: !!binary |
+    C4YVm/mEoy30autkA/SYUcrASeb5dkAjyFa4UC3v54R727R5PTTZnC6ejuNB0wwDtGDrBGYeU6yE
+    0j15GmkCXuQ8b1tizc67AmsMG3dWIy2QjW49ck3nft7KIdx7XB7w59Z+bi2ljA==
+  # zhuzhu
+  port: 5432
+  username: user
+  # 猪猪
+  password: secret
+api:
+  key: !!binary |
+    T4w7l2F6z1cwqrn5J135J4puCQC2EtZFWlfgmn3eMS5gAUEOfYlS8DkY7VsR8HUjiSt/kmuQWebC
+    aFQ/ry66uraE34XJvUBSwyx4zu0Rvw4hKzSsRVUTv6jpPhbYInzyPNeMtjoy
+  endpoint: https://api.example.com
+service:
+  url: https://service.example.com    # 猪猪

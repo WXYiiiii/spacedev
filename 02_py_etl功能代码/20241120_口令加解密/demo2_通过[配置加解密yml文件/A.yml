@@ -1,2 +1,6 @@
-psw: 'hello'
-other_info: 'This is some other information.'
+password: pasW123!
+username: zhuzhu
+database:
+  host: localhost
+  name: my_database
+  port: 3306

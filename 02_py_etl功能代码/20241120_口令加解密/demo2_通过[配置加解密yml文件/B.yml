@@ -1,3 +1,4 @@
 encript:
   A:
-    - psw
+    - password
+    - username

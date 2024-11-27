@@ -1,0 +1,11 @@
+database:
+  host: keyhost    # zhuzhu
+  port: 5432
+  username: user
+  # 猪猪
+  password: secret
+api:
+  key: keykey
+  endpoint: https://api.example.com
+service:
+  url: https://service.example.com    # 猪猪
